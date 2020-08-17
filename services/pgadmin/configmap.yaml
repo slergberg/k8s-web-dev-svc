@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap
+data:
+  user.email: postgres
+  user.password: postgres
+  servers.file: /pgadmin4/web-dev-svc/servers.json
+  servers.config: |
+    {
+      "Servers": {
+        "1": {
+          "Group": "Servers",
+          "Host": "web-dev-svc-postgresql",
+          "MaintenanceDB": "web-dev-svc",
+          "Name": "postgres@web-dev-svc-postgresql",
+          "PassFile": "/web-dev-svc/passfile",
+          "Port": 5432,
+          "SSLMode": "prefer",
+          "Username": "postgres"
+        }
+      }
+    }
+  servers.passfile: web-dev-svc-postgresql:5432:web-dev-svc:postgres:postgres

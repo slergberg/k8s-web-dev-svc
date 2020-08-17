@@ -1,0 +1,12 @@
+minio:
+  accessKey: "123456789"
+  secretKey: "123456789"
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - minio.web-dev-svc.localhost
+  service:
+    annotations:
+      kubernetes.io/ingress.class: nginx

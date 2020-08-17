@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/ports
+  value:
+    - protocol: TCP
+      port: 1080
+      targetPort: 1080

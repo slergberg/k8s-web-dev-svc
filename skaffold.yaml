@@ -1,0 +1,47 @@
+apiVersion: skaffold/v2beta6
+kind: Config
+metadata:
+  name: web-dev-svc
+deploy:
+  kubectl:
+    manifests:
+      - ./kubectl/**/*.yaml
+  kustomize:
+    paths:
+      - ./services/dapr-dashboard
+      - ./services/mailcatcher
+      - ./services/phpmyadmin
+      - ./services/pgadmin
+      - ./services/redis-commander
+      - ./services/redis-insight
+  helm:
+    releases:
+      - name: web-dev-svc-ingress-nginx
+        chartPath: ./services/ingress-nginx
+        namespace: web-dev-svc
+        skipBuildDependencies: true
+        wait: true
+      - name: web-dev-svc-argo
+        chartPath: ./services/argo
+        namespace: web-dev-svc
+        skipBuildDependencies: true
+      - name: web-dev-svc-dapr
+        chartPath: ./services/dapr
+        namespace: web-dev-svc
+        skipBuildDependencies: true
+      - name: web-dev-svc-minio
+        chartPath: ./services/minio
+        namespace: web-dev-svc
+        skipBuildDependencies: true
+      - name: web-dev-svc-mysql
+        chartPath: ./services/mysql
+        namespace: web-dev-svc
+        skipBuildDependencies: true
+      - name: web-dev-svc-postgresql
+        chartPath: ./services/postgresql
+        namespace: web-dev-svc
+        skipBuildDependencies: true
+      - name: web-dev-svc-redis
+        chartPath: ./services/redis
+        namespace: web-dev-svc
+        skipBuildDependencies: true

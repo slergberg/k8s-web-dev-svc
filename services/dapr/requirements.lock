@@ -1,0 +1,6 @@
+dependencies:
+- name: dapr
+  repository: https://daprio.azurecr.io/helm/v1/repo
+  version: 0.10.0
+digest: sha256:b6b86d0d4c5fcb38e99c2104fce778136cd500d0e22c380a1e9ef6c9ee755991
+generated: "2020-08-26T11:24:06.0918556-03:00"

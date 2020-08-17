@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: web-dev-svc
+namePrefix: web-dev-svc-mailcatcher-
+commonLabels:
+  app: web-dev-svc-mailcatcher
+bases:
+  - ../base/deployment
+  - ../base/ingress
+  - ../base/service
+images:
+  - name: webdevsvc/base
+    newName: webdevsvc/mailcatcher
+patchesJson6902:
+  - path: ./deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: deployment
+  - path: ./ingress.yaml
+    target:
+      kind: Ingress
+      group: networking.k8s.io
+      version: v1beta1
+      name: ingress
+  - path: ./service.yaml
+    target:
+      kind: Service
+      group: ""
+      version: v1
+      name: service

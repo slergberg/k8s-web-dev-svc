@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: web-dev-svc
+namePrefix: web-dev-svc-dapr-dashboard-
+commonLabels:
+  app: web-dev-svc-dapr-dashboard
+bases:
+  - ../base/ingress
+images:
+  - name: webdevsvc/base
+    newName: webdevsvc/dapr-dashboard
+patchesJson6902:
+  - path: ./ingress.yaml
+    target:
+      kind: Ingress
+      group: networking.k8s.io
+      version: v1beta1
+      name: ingress

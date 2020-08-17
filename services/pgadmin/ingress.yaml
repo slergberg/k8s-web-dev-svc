@@ -1,0 +1,9 @@
+- op: replace
+  path: /spec/rules/0/host
+  value: pgadmin.web-dev-svc.localhost
+
+- op: replace
+  path: /spec/rules/0/http/paths/0/backend
+  value:
+    serviceName: web-dev-svc-pgadmin-service
+    servicePort: 80

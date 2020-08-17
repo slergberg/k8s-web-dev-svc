@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap
+data:
+  pma.arbitrary: "6379"
+  mysql.host: web-dev-svc-mysql
+  mysql.port: "3306"

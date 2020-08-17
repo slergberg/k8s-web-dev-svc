@@ -1,0 +1,33 @@
+- op: add
+  path: /spec/template/spec/containers/0/ports
+  value:
+    - containerPort: 80
+
+- op: add
+  path: /spec/template/spec/containers/0/env
+  value:
+    - name: PMA_ARBITRARY
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: pma.arbitrary
+    - name: PMA_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: mysql.host
+    - name: PMA_PORT
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: mysql.port
+    - name: PMA_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: web-dev-svc-mysql
+          key: password
+    - name: PMA_USER
+      valueFrom:
+        secretKeyRef:
+          name: web-dev-svc-mysql
+          key: username

@@ -1,0 +1,7 @@
+mysql:
+  db:
+    name: web-dev-svc
+  replication:
+    enabled: false
+  root:
+    password: root

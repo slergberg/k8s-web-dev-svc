@@ -1,0 +1,51 @@
+- op: add
+  path: /spec/template/spec/containers/0/ports
+  value:
+    - containerPort: 80
+
+- op: add
+  path: /spec/template/spec/containers/0/env
+  value:
+    - name: PGADMIN_DEFAULT_EMAIL
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: user.email
+    - name: PGADMIN_DEFAULT_PASSWORD
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: user.password
+    - name: PGADMIN_SERVER_JSON_FILE
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: servers.file
+
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts
+  value:
+    - name: servers-volume
+      mountPath: /pgadmin4/web-dev-svc
+    - name: storage-volume
+      mountPath: /var/lib/pgadmin/storage
+    - name: passfile-volume
+      mountPath: /var/lib/pgadmin/storage/postgres/web-dev-svc
+
+- op: add
+  path: /spec/template/spec/volumes
+  value:
+    - name: servers-volume
+      configMap:
+        name: configmap
+        items:
+          - key: servers.config
+            path: servers.json
+    - name: storage-volume
+      emptyDir: {}
+    - name: passfile-volume
+      configMap:
+        name: configmap
+        items:
+          - key: servers.passfile
+            path: passfile

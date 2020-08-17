@@ -1,0 +1,9 @@
+- op: replace
+  path: /spec/rules/0/host
+  value: redis-insight.web-dev-svc.localhost
+
+- op: replace
+  path: /spec/rules/0/http/paths/0/backend
+  value:
+    serviceName: service
+    servicePort: 8001

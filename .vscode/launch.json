@@ -1,0 +1,31 @@
+{
+  "configurations": [
+    {
+      "type": "cloudcode.kubernetes",
+      "name": "Deploy",
+      "cleanUp": false,
+      "portForward": false,
+      "request": "launch",
+      "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+      "watch": false
+    },
+    {
+      "type": "cloudcode.kubernetes",
+      "name": "Run",
+      "cleanUp": false,
+      "portForward": true,
+      "request": "launch",
+      "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+      "watch": false
+    },
+    {
+      "type": "cloudcode.kubernetes",
+      "name": "Debug",
+      "cleanUp": true,
+      "portForward": true,
+      "request": "launch",
+      "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+      "watch": true
+    }
+  ]
+}

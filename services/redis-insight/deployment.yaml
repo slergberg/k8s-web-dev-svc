@@ -1,0 +1,46 @@
+- op: add
+  path: /spec/template/spec/containers/0/env
+  value:
+    - name: REDIS_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: redis.host
+    - name: REDIS_NAME
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: redis.name
+    - name: REDIS_PORT
+      valueFrom:
+        configMapKeyRef:
+          name: configmap
+          key: redis.port
+    - name: REDIS_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: web-dev-svc-redis
+          key: redis-password
+- op: add
+  path: /spec/template/spec/containers/0/ports
+  value:
+    - containerPort: 8001
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts
+  value:
+    - name: db
+      mountPath: /db
+- op: add
+  path: /spec/template/spec/containers/0/lifecycle
+  value:
+    postStart:
+      exec:
+        command:
+          - "bash"
+          - "-c"
+          - 'while [[ $(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8001/) != 200 ]]; do echo waiting for service; sleep 2; done; curl --location --request POST http://127.0.0.1:8001/api/instance/ --header "Content-Type: application/json" --data-raw "{\"name\":\"web-dev-svc\",\"connectionType\":\"STANDALONE\",\"host\":\"$REDIS_HOST\",\"port\":$REDIS_PORT,\"password\":\"$REDIS_PASSWORD\"}"'
+- op: add
+  path: /spec/template/spec/volumes
+  value:
+    - name: db
+      emptyDir: {}

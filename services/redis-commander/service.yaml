@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/ports
+  value:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081

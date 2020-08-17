@@ -1,0 +1,41 @@
+argo:
+  artifactRepository:
+    archiveLogs: true
+    s3:
+      accessKeySecret:
+        name: web-dev-svc-minio
+        key: accesskey
+      secretKeySecret:
+        name: web-dev-svc-minio
+        key: secretkey
+      insecure: true
+      bucket: web-dev-svc-argo
+      endpoint: web-dev-svc-minio:9000
+      region: us-east-1
+  controller:
+    persistence:
+      archive: true
+      postgresql:
+        host: web-dev-svc-postgresql
+        port: 5432
+        database: web-dev-svc
+        tableName: argo_workflows
+        userNameSecret:
+          name: web-dev-svc-postgresql
+          key: username
+        passwordSecret:
+          name: web-dev-svc-postgresql
+          key: password
+    workflowDefaults:
+      spec:
+        ttlStrategy:
+          secondsAfterCompletion: 3600
+  server:
+    name: argo-server
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+        - argo.web-dev-svc.localhost
+  installCRD: false

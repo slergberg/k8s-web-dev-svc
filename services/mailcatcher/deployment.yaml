@@ -1,0 +1,5 @@
+- op: add
+  path: /spec/template/spec/containers/0/ports
+  value:
+    - containerPort: 25
+    - containerPort: 1080

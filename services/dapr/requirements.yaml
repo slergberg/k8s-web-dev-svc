@@ -1,0 +1,4 @@
+dependencies:
+  - name: dapr
+    repository: https://daprio.azurecr.io/helm/v1/repo
+    version: 0.10.0

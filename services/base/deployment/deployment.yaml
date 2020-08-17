@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  replicas: 1
+  selector: {}
+  template:
+    spec:
+      containers:
+        - name: container
+          image: webdevsvc/base
